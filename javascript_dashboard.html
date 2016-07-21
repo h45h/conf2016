@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Splunk Conf 2016 HTML NEW</title>
+    <link rel="shortcut icon" href="{{SPLUNKWEB_URL_PREFIX}}/static/img/favicon.ico" />
+        <link rel="stylesheet" type="text/css" href="/en-US/static/@aa7d4b1ccb80/css/build/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="/en-US/static/@aa7d4b1ccb80/css/build/pages/dashboard-simple-bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="{{SPLUNKWEB_URL_PREFIX}}/static/app/search/dashboard.css" />
+</head>
+<body class="simplexml preload locale-en">
+<!-- 
+BEGIN LAYOUT
+This section contains the layout for the dashboard. Splunk uses proprietary
+styles in <div> tags, similar to Bootstrap's grid system. 
+-->
+  
+<!--
+MODAL CODE 
+--> 
+<div id="idModal">
+  <div id="modalWindow" class="modal hide fade" style="display: none;" aria-hidden="true">
+    <div class="modal-header"><a class="close" data-dismiss="modal">×</a><h4>Flag and comment on this row.</h4>
+    </div>
+    <div class="modal-body" id="modalbody">
+      <p>Hello, <span id="currentuser">someone</span>. 
+      Modify the default comment or just submit.
+      </p>
+    </div>
+    <div class="modal-footer">
+      <span class="btn btn-success" id="saveme">Save</span><span class="btn" data-dismiss="modal">Cancel</span>
+    </div>
+  </div>
+</div>
+<!--
+END MODAL CODE 
+--> 
+      
+      
+<a class="navSkip" href="#navSkip" tabindex="1">Screen reader users, click here to skip the navigation bar</a>
+<div class="header splunk-header">
+        <div id="placeholder-splunk-bar">
+            <a href="{{SPLUNKWEB_URL_PREFIX}}/app/launcher/home" class="brand" title="splunk &gt; listen to your data">splunk<strong>&gt;</strong></a>
+        </div>
+            <div id="placeholder-app-bar"></div>
+</div>
+<a id="navSkip"></a>
+<div class="dashboard-body container-fluid main-section-body" data-role="main">
+    <div class="dashboard-header clearfix">
+        <h2>Splunk Conf 2016 HTML NEW</h2>
+    </div>
+    <div class="fieldset">
+        <div class="input input-multiselect" id="input1">
+            <label>Log level</label>
+        </div>
+        <div class="input input-timerangepicker" id="input2">
+            <label>Time Range</label>
+        </div>
+        <div class="input input-text" id="input3">
+            <label>Storage File (without .csv)</label>
+        </div>
+        <div class="form-submit" id="search_btn">
+            <button class="btn btn-primary submit">Submit</button>
+        </div>
+    </div>
+
+
+    <div id="row1" class="dashboard-row dashboard-row1">
+        <div id="panel1" class="dashboard-cell" style="width: 50%;">
+            <div class="dashboard-panel clearfix">
+                <h2 class="panel-title">Log Levels During Time Frame</h2>
+                
+                <div class="panel-element-row">
+                    <div id="element1" class="dashboard-element chart" style="width: 100%">
+                        <div class="panel-head">
+                            <h3>Log Levels</h3>
+                        </div>
+                        <div class="panel-body"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="panel2" class="dashboard-cell" style="width: 50%;">
+            <div class="dashboard-panel clearfix">
+                <h2 class="panel-title">Log Levels During Time Frame</h2>
+                
+                <div class="panel-element-row">
+                    <div id="element2" class="dashboard-element chart" style="width: 100%">
+                        <div class="panel-head">
+                            <h3>Log levels over time</h3>
+                        </div>
+                        <div class="panel-body"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="row2" class="dashboard-row dashboard-row2">
+        <div id="panel3" class="dashboard-cell" style="width: 100%;">
+            <div class="dashboard-panel clearfix">
+                <h2 class="panel-title">Log Events of Level During Time Frame</h2>
+                
+                <div class="panel-element-row">
+                    <div id="element3" class="dashboard-element table" style="width: 100%">
+                        <div class="panel-head">
+                            <h3>Timechart Data</h3>
+                        </div>
+                        <div class="panel-body"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer"></div>
+
+<!-- 
+END LAYOUT
+-->
+
+<script src="{{SPLUNKWEB_URL_PREFIX}}/config?autoload=1"></script>
+<script src="{{SPLUNKWEB_URL_PREFIX}}/static/js/i18n.js"></script>
+<script src="{{SPLUNKWEB_URL_PREFIX}}/i18ncatalog?autoload=1"></script>
+<script src="{{SPLUNKWEB_URL_PREFIX}}/static/js/build/simplexml.min/config.js"></script>
+<script type="text/javascript">
+// <![CDATA[
+require.config({
+    baseUrl: "{{SPLUNKWEB_URL_PREFIX}}/static/js",
+    waitSeconds: 0 // Disable require.js load timeout
+});
+
+//
+// LIBRARY REQUIREMENTS
+//
+// In the require function, we include the necessary libraries and modules for
+// the HTML dashboard. Then, we pass variable names for these libraries and
+// modules as function parameters, in order.
+// 
+// When you add libraries or modules, remember to retain this mapping order
+// between the library or module and its function parameter. You can do this by
+// adding to the end of these lists, as shown in the commented examples below.
+
+require([
+        "splunkjs/mvc",
+        "splunkjs/mvc/utils",
+        "splunkjs/mvc/tokenutils",
+        "underscore",
+        "jquery",
+        "splunkjs/mvc/simplexml",
+        "splunkjs/mvc/headerview",
+        "splunkjs/mvc/footerview",
+        "splunkjs/mvc/simplexml/dashboardview",
+        "splunkjs/mvc/simplexml/dashboard/panelref",
+        "splunkjs/mvc/simplexml/element/chart",
+        "splunkjs/mvc/simplexml/element/event",
+        "splunkjs/mvc/simplexml/element/html",
+        "splunkjs/mvc/simplexml/element/list",
+        "splunkjs/mvc/simplexml/element/map",
+        "splunkjs/mvc/simplexml/element/single",
+        "splunkjs/mvc/simplexml/element/table",
+        "splunkjs/mvc/simpleform/formutils",
+        "splunkjs/mvc/simplexml/eventhandler",
+        "splunkjs/mvc/simplexml/searcheventhandler",
+        "splunkjs/mvc/simpleform/input/dropdown",
+        "splunkjs/mvc/simpleform/input/radiogroup",
+        "splunkjs/mvc/simpleform/input/linklist",
+        "splunkjs/mvc/simpleform/input/multiselect",
+        "splunkjs/mvc/simpleform/input/checkboxgroup",
+        "splunkjs/mvc/simpleform/input/text",
+        "splunkjs/mvc/simpleform/input/timerange",
+        "splunkjs/mvc/simpleform/input/submit",
+        "splunkjs/mvc/searchmanager",
+        "splunkjs/mvc/savedsearchmanager",
+        "splunkjs/mvc/postprocessmanager",
+        "splunkjs/mvc/simplexml/urltokenmodel"
+        // Add comma-separated libraries and modules manually here, for example:
+        // ..."splunkjs/mvc/simplexml/urltokenmodel",
+        // "splunkjs/mvc/checkboxview"
+    ],
+    function(
+        mvc,
+        utils,
+        TokenUtils,
+        _,
+        $,
+        DashboardController,
+        HeaderView,
+        FooterView,
+        Dashboard,
+        PanelRef,
+        ChartElement,
+        EventElement,
+        HtmlElement,
+        ListElement,
+        MapElement,
+        SingleElement,
+        TableElement,
+        FormUtils,
+        EventHandler,
+        SearchEventHandler,
+        DropdownInput,
+        RadioGroupInput,
+        LinkListInput,
+        MultiSelectInput,
+        CheckboxGroupInput,
+        TextInput,
+        TimeRangeInput,
+        SubmitButton,
+        SearchManager,
+        SavedSearchManager,
+        PostProcessManager,
+        UrlTokenModel
+
+        // Add comma-separated parameter names here, for example: 
+        // ...UrlTokenModel, 
+        // CheckboxView
+    ) {
+
+        var pageLoading = true;
+
+
+        // 
+        // TOKENS
+        //
+
+        // Create token namespaces
+        var urlTokenModel = new UrlTokenModel();
+        mvc.Components.registerInstance('url', urlTokenModel);
+        var defaultTokenModel = mvc.Components.getInstance('default', {
+            create: true
+        });
+        var submittedTokenModel = mvc.Components.getInstance('submitted', {
+            create: true
+        });
+
+        urlTokenModel.on('url:navigate', function() {
+            defaultTokenModel.set(urlTokenModel.toJSON());
+            if (!_.isEmpty(urlTokenModel.toJSON()) && !_.all(urlTokenModel.toJSON(), _.isUndefined)) {
+                submitTokens();
+            } else {
+                submittedTokenModel.clear();
+            }
+        });
+
+        // Initialize tokens
+        defaultTokenModel.set(urlTokenModel.toJSON());
+
+        function submitTokens() {
+            // Copy the contents of the defaultTokenModel to the submittedTokenModel and urlTokenModel
+            FormUtils.submitForm({
+                replaceState: pageLoading
+            });
+        }
+
+        function setToken(name, value) {
+            defaultTokenModel.set(name, value);
+            submittedTokenModel.set(name, value);
+        }
+
+        function unsetToken(name) {
+            defaultTokenModel.unset(name);
+            submittedTokenModel.unset(name);
+        }
+
+
+
+        //
+        // SEARCH MANAGERS
+        //
+
+        var search1 = new SearchManager({
+            "id": "search1",
+            "search": "index=_internal eventtype=splunkd-log log_level=ERROR OR log_level=INFO OR log_level=WARN | stats count by log_level",
+            "latest_time": "$log_time.latest$",
+            "status_buckets": 0,
+            "cancelOnUnload": true,
+            "earliest_time": "$log_time.earliest$",
+            "app": utils.getCurrentApp(),
+            "auto_cancel": 90,
+            "preview": true,
+            "runWhenTimeIsUndefined": false
+        }, {
+            tokens: true,
+            tokenNamespace: "submitted"
+        });
+
+        var search2 = new SearchManager({
+            "id": "search2",
+            "search": "index=_internal log_level!=\"\" AND $log_level$  | timechart span=1d count by log_level cont=FALSE",
+            "latest_time": "$log_time.latest$",
+            "status_buckets": 0,
+            "cancelOnUnload": true,
+            "earliest_time": "$log_time.earliest$",
+            "app": utils.getCurrentApp(),
+            "auto_cancel": 90,
+            "preview": true,
+            "runWhenTimeIsUndefined": false
+        }, {
+            tokens: true,
+            tokenNamespace: "submitted"
+        });
+
+        var search3 = new SearchManager({
+            "id": "search3",
+            "search": "index=_internal message!=\"\" $log_level$  | rex field=message mode=sed \"s/\\x22/ /g\" | table _time, message, source, eventtype, file, host, log_level",
+            "latest_time": "$log_time.latest$",
+            "status_buckets": 0,
+            "cancelOnUnload": true,
+            "earliest_time": "$log_time.earliest$",
+            "app": utils.getCurrentApp(),
+            "auto_cancel": 90,
+            "preview": true,
+            "runWhenTimeIsUndefined": false
+        }, {
+            tokens: true,
+            tokenNamespace: "submitted"
+        });
+
+
+
+        //
+        // SPLUNK HEADER AND FOOTER
+        //
+
+        new HeaderView({
+            id: 'header',
+            section: 'dashboards',
+            el: $('.header'),
+            acceleratedAppNav: true,
+            useSessionStorageCache: true,
+            splunkbar: true,
+            appbar: true,
+            litebar: false,
+        }, {
+            tokens: true
+        }).render();
+
+        new FooterView({
+            id: 'footer',
+            el: $('.footer')
+        }, {
+            tokens: true
+        }).render();
+
+
+        //
+        // DASHBOARD EDITOR
+        //
+
+        new Dashboard({
+            id: 'dashboard',
+            el: $('.dashboard-body'),
+            showTitle: true,
+            editable: true
+        }, {
+            tokens: true
+        }).render();
+
+
+        //
+        // VIEWS: VISUALIZATION ELEMENTS
+        //
+
+        var element1 = new ChartElement({
+            "id": "element1",
+            "charting.drilldown": "none",
+            "charting.chart.bubbleSizeBy": "area",
+            "charting.axisLabelsX.majorLabelStyle.overflowMode": "ellipsisNone",
+            "charting.layout.splitSeries": "0",
+            "charting.chart.showDataLabels": "none",
+            "charting.chart.bubbleMinimumSize": "10",
+            "charting.axisX.scale": "linear",
+            "charting.chart.sliceCollapsingThreshold": "0.01",
+            "charting.chart": "pie",
+            "charting.legend.placement": "right",
+            "charting.axisY2.scale": "inherit",
+            "charting.chart.nullValueMode": "gaps",
+            "charting.axisTitleY.visibility": "visible",
+            "charting.legend.labelStyle.overflowMode": "ellipsisMiddle",
+            "charting.chart.bubbleMaximumSize": "50",
+            "charting.chart.stackMode": "default",
+            "charting.axisY.scale": "linear",
+            "resizable": true,
+            "charting.axisY2.enabled": "0",
+            "charting.axisLabelsX.majorLabelStyle.rotation": "0",
+            "charting.axisTitleX.visibility": "visible",
+            "charting.layout.splitSeries.allowIndependentYRanges": "0",
+            "charting.chart.style": "shiny",
+            "charting.axisTitleY2.visibility": "visible",
+            "managerid": "search1",
+            "el": $('#element1')
+        }, {
+            tokens: true,
+            tokenNamespace: "submitted"
+        }).render();
+
+
+        var element2 = new ChartElement({
+            "id": "element2",
+            "charting.drilldown": "none",
+            "charting.chart.bubbleSizeBy": "area",
+            "charting.axisLabelsX.majorLabelStyle.overflowMode": "ellipsisNone",
+            "charting.layout.splitSeries": "0",
+            "charting.chart.showDataLabels": "minmax",
+            "charting.chart.bubbleMinimumSize": "10",
+            "charting.axisX.scale": "linear",
+            "charting.chart.sliceCollapsingThreshold": "0.01",
+            "charting.chart": "column",
+            "charting.legend.placement": "right",
+            "charting.axisY2.scale": "inherit",
+            "charting.chart.nullValueMode": "gaps",
+            "charting.axisTitleY.visibility": "visible",
+            "charting.legend.labelStyle.overflowMode": "ellipsisMiddle",
+            "charting.chart.bubbleMaximumSize": "50",
+            "charting.chart.stackMode": "stacked",
+            "charting.axisY.scale": "linear",
+            "resizable": true,
+            "charting.axisY2.enabled": "0",
+            "charting.axisLabelsX.majorLabelStyle.rotation": "-90",
+            "charting.axisTitleX.visibility": "visible",
+            "charting.layout.splitSeries.allowIndependentYRanges": "0",
+            "charting.chart.style": "shiny",
+            "charting.axisTitleY2.visibility": "visible",
+            "managerid": "search2",
+            "el": $('#element2')
+        }, {
+            tokens: true,
+            tokenNamespace: "submitted"
+        }).render();
+
+
+        var element3 = new TableElement({
+            "id": "element3",
+            "count": 10,
+            "dataOverlayMode": "none",
+            "drilldown": "cell",
+            "rowNumbers": "false",
+            "wrap": "true",
+            "managerid": "search3",
+            "el": $('#element3')
+        }, {
+            tokens: true,
+            tokenNamespace: "submitted"
+        }).render();
+
+        /// NEW MODAL FUNCTIONS ///
+
+        var current_user = Splunk.util.getConfigValue("USERNAME"); // may be different in other versions
+        var header = "Flag and comment on this row.";
+        var content = "No content available.";
+        var search_count = 0; // Used later when saving comments from modal.
+
+        function doModal(placementId, heading, formContent, uid, timestamp,
+            source, message, eventtype, host, log_level) {
+
+            // Populate place holders with fields: timestamp, username, comment, source, message, eventtype, host, log_level
+            html = '<p>';
+            html += 'Hello, <span id="currentuser">' + current_user + '</span>. Modify the default comment or just submit.</br>';
+            // html += '<div id="uid">' + uid + '</div>'; // This is for regular indexes, not _internal
+            html += '<div id="timestamp">' + timestamp + '</div>';
+            html += '<div id="source">' + source + '</div>';
+            html += '<div id="message" style="display: none;">' + message + '</div>';
+            html += '<div id="eventtype">' + eventtype + '</div>';
+            html += '<div id="host">' + host + '</div>';
+            html += '<div id="log_level">' + log_level + '</div>';
+            html += 'Comment:<br/> <textarea rows="3" cols="500" id="comment">';
+            html += formContent;
+            html += '</textarea>';
+            html += '</input><br>';
+            html += '</div>';
+
+            $("#modalbody").html(html);
+            $("#modalWindow").modal();
+        }
+
+
+        function hideModal() {
+            $('.modal.in').modal('hide');
+        }
+
+
+        element3.on("click", function(e) {
+            if (e.field !== undefined) {
+                e.preventDefault();
+                console.log(e.data);
+                content = 'Field: [' + e.data['click.name2'] + '] with content: [' + e.data['click.value2'] + '] was flagged.';
+                doModal('idModal', header, content, e.data['row.uid'], e.data['row._time'], e.data['row.source'], e.data['row.message'], e.data['row.eventtype'], e.data['row.host'], e.data['row.log_level']);
+            }
+        });
+        /// END NEW MODAL FUNCTIONS ///
+
+        //
+        // VIEWS: FORM INPUTS
+        //
+
+        var input1 = new MultiSelectInput({
+            "id": "input1",
+            "choices": [{
+                "label": "ERROR",
+                "value": "ERROR"
+            }, {
+                "label": "WARN",
+                "value": "WARN"
+            }, {
+                "label": "INFO",
+                "value": "INFO"
+            }],
+            "searchWhenChanged": true,
+            "valuePrefix": "log_level=",
+            "delimiter": " OR ",
+            "initialValue": ["ERROR"],
+            "default": ["ERROR"],
+            "value": "$form.log_level$",
+            "el": $('#input1')
+        }, {
+            tokens: true
+        }).render();
+
+        input1.on("change", function(newValue) {
+            FormUtils.handleValueChange(input1);
+        });
+
+        var input2 = new TimeRangeInput({
+            "id": "input2",
+            "searchWhenChanged": true,
+            "default": {
+                "latest_time": null,
+                "earliest_time": "0"
+            },
+            "earliest_time": "$form.log_time.earliest$",
+            "latest_time": "$form.log_time.latest$",
+            "el": $('#input2')
+        }, {
+            tokens: true
+        }).render();
+
+        input2.on("change", function(newValue) {
+            FormUtils.handleValueChange(input2);
+        });
+
+        var input3 = new TextInput({
+            "id": "input3",
+            "initialValue": "default",
+            "default": "default",
+            "value": "$form.input_csv$",
+            "el": $('#input3')
+        }, {
+            tokens: true
+        }).render();
+
+        input3.on("change", function(newValue) {
+            FormUtils.handleValueChange(input3);
+        });
+
+
+        // 
+        // SUBMIT FORM DATA
+        //
+
+        var submit = new SubmitButton({
+            id: 'submit',
+            el: $('#search_btn')
+        }, {
+            tokens: true
+        }).render();
+
+        submit.on("submit", function() {
+            submitTokens();
+        });
+
+        // Initialize time tokens to default
+        if (!defaultTokenModel.has('earliest') && !defaultTokenModel.has('latest')) {
+            defaultTokenModel.set({
+                earliest: '0',
+                latest: ''
+            });
+        }
+
+        submitTokens();
+
+
+        //
+        // DASHBOARD READY
+        //
+
+        DashboardController.ready();
+        pageLoading = false;
+
+        /// NEW MODAL SAVE DATA FUNCTION ///
+        var myResults = null;
+        $("#saveme").click(function() {
+            var query = '| stats count | fields - count | eval timestamp="';
+            query += $("#timestamp").text();
+            query += '" | eval username="' + current_user;
+            query += '" | eval comment="' + $("#comment").val();
+            // query+= '" | eval uuid="' + $("#uid").text();  //this is for regular indexes, not _internal
+            query += '" | eval source="' + $("#source").text();
+            query += '" | eval message="' + $("#message").text();
+            query += '" | eval eventtype="' + $("#eventtype").text();
+            query += '" | eval host="' + $("#host").text();
+            query += '" | eval log_level="' + $("#log_level").text();
+            query += '" | table timestamp, username, comment, source, message, eventtype, host, log_level';
+            query += '| outputcsv ' + $("#input3").find("input").val() + ' append=t ';
+
+            console.log(query);
+
+            search_count += 1;
+
+            var sm = new SearchManager({
+                "id": "mysearch" + search_count.toString(), //this must be incremented each time the query is performed
+                "status_buckets": 0,
+                "cancelOnUnload": true,
+                "search": query,
+                "app": utils.getCurrentApp(),
+                "auto_cancel": 90,
+                "preview": true,
+                "runWhenTimeIsUndefined": false
+            }, {
+                tokens: false
+            });
+
+            var mainSearch = splunkjs.mvc.Components.get("mysearch" + search_count.toString());
+            myResults = mainSearch.data("preview", {
+                count: 25,
+                offset: 10
+            }); //create a result collection, but do nothing with it.
+
+            hideModal();
+        });
+        /// END NEW MODAL SAVE DATA FUNCTION ///
+
+    });
+
+// ]]>
+</script>
+</body>
+</html>
